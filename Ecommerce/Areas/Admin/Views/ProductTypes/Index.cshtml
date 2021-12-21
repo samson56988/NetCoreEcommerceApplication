@@ -1,0 +1,50 @@
+﻿@using Ecommerce.Models;
+@model IEnumerable<ProductType>
+@{
+    ViewData["Title"] = "Index";
+}
+<br /><br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Product Type List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create"  class="btn btn-info">&nbsp;<i class="fas fa-plus-circle"></i>  New Product Types</a>
+    </div>
+</div>
+<br />
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(expression: c => c.Product)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Product
+                    </td>
+                    <td>
+                     <partial name="ButtonPartials" model="@item.ProductId" />
+                    </td>
+                </tr>
+            }
+    </table>
+</div>
+
+@section scripts{ 
+ <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script type="text/javascript">
+ $(function(){
+var save = '@TempData["save"]'
+if(save!=null)
+{   
+ alertify.success(save);
+}})
+ </script>
+}

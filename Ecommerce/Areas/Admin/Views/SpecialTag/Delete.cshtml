@@ -1,0 +1,27 @@
+﻿@model Ecommerce.Models.SpecialTags
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form asp-action="Delete" method="post">
+    <br />
+    <h2 class="text-info"> Delete Product Type</h2>
+    <div class="form-group row">
+        <input type="hidden" asp-for="SpecialTagId" />
+        <div class="col-5">
+            <label asp-for="SpecialTag">Special Tag</label>
+            <input asp-for="SpecialTag" readonly="readonly" class="form-control" />
+            <span asp-validation-for="SpecialTag" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <a asp-action="Index" class="btn btn-success">Back to List</a>
+    </div>
+</form>
+@section Scripts{
+
+    @{ await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial");}
+
+}
+
