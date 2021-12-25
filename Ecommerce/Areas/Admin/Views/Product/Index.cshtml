@@ -2,9 +2,27 @@
 @model IEnumerable<Product>
 @{
     ViewData["Title"] = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <br /><br />
+
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-3">
+            <input type="text" class="form-control" name="LowAmount" />
+        </div>
+          <div class="col-3">
+            <input type="text" class="form-control" name="LargeAmount" />
+        </div>
+        <div class="col-3">
+            <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+    </div>
+</form>
+
 <div class="row">
     <div class="col-6">
         <h2 class="text-info">Product List</h2>
@@ -16,8 +34,9 @@
 <br />
 
 <div>
-    <table class="table table-striped border">
-        <tr class="table-info">
+    <table class="table table-striped table-hover" id="myTablet" style="width:100%;">
+           <thead>
+        <tr class="table-info" >
             <th>
                 @Html.DisplayNameFor(expression: c => c.Name)
             </th>
@@ -36,6 +55,7 @@
             <th></th>
             <th></th>
         </tr>
+        </thead>
         @foreach(var item in Model)
             {
                 <tr>
@@ -55,17 +75,30 @@
                         @item.ProductType
                     </td>
                     <td>
-                     <partial name="ButtonPartials" model="@item.Id" />
+                     <partial name="_ProductButton" model="@item.Id" />
                     </td>
                 </tr>
             }
     </table>
 </div>
 
-@section scripts{ 
- <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-<script type="text/javascript">
- $(function(){
+@section scripts{
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<script type="text/javascript">    
+
+ $(document).ready( function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'pageLength','copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        } );
+
+
+$(function(){
 var save = '@TempData["save"]'
 if(save!=null)
 {   
@@ -84,4 +117,4 @@ if(del!='')
  })
  </script>
 }
-
+ 
